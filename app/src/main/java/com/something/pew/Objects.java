@@ -16,11 +16,18 @@ public class Objects extends View {
 
     public Objects(Context context) {
         super(context);
-        rectangle = new Rect(950, 0, 1100 ,5000); //Make rectangle BIG BOI
-        ball = new RectF(100, 700, 200, 800);
-        hole = new RectF(975, 600, 1075, 750);
+        int ballxstart = (int)(Math.random() * 100) + 50;
+        int ballystart = (int)(Math.random() * 800) + 200;
+        float holestart = (float)(Math.random() * 1000) + 250;
+        System.out.println("ballxstart: " + ballxstart);
+        System.out.println("ballystart: " + ballystart);
+        System.out.println("holestart: " + holestart);
+        rectangle = new Rect(950, 0, 1100 ,5000);
+        ball = new RectF(ballxstart, ballystart, ballxstart+100, ballystart+100);
+        hole = new RectF(800, holestart, 1050, holestart + 150);
         rectpaint = new Paint();
         ballpaint = new Paint();
+        holepaint = new Paint();
         rectpaint.setColor(Color.BLACK);
         ballpaint.setColor(Color.BLUE);
         holepaint.setColor(Color.WHITE);
@@ -30,10 +37,20 @@ public class Objects extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawRect(rectangle, rectpaint);
         canvas.drawOval(ball, ballpaint);
-        canvas.drawOval(hole, ballpaint);
+        canvas.drawArc(hole.left, hole.top, hole.right, hole.bottom, 120, -180, true, holepaint);
     }
 
+    public Rect getRectangle() {
+        return rectangle;
+    }
 
+    public RectF getHole() {
+        return hole;
+    }
+
+    public RectF getBall() {
+        return ball;
+    }
 
 
     //Animating ball: https://stackoverflow.com/questions/16932668/how-can-we-define-dynamicin-parabola-curve-path-of-viewobjectbitmap

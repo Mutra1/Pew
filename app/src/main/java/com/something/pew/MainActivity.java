@@ -5,9 +5,16 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
+    Game game;
+    Objects objects;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new Objects(this));
+        game = new Game(0);
+        objects = new Objects(this);
+        setContentView(objects);
     }
+
+
 }
