@@ -24,7 +24,7 @@ public class Objects extends View {
         System.out.println("holestart: " + holestart);
         rectangle = new Rect(950, 0, 1100 ,5000);
         ball = new RectF(ballxstart, ballystart, ballxstart+100, ballystart+100);
-        hole = new RectF(800, holestart, 1050, holestart + 150);
+        hole = new RectF(750, holestart-100, 1050, holestart + 150);
         rectpaint = new Paint();
         ballpaint = new Paint();
         holepaint = new Paint();
@@ -35,9 +35,10 @@ public class Objects extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        canvas.drawColor(Color.WHITE);
         canvas.drawRect(rectangle, rectpaint);
         canvas.drawOval(ball, ballpaint);
-        canvas.drawArc(hole.left, hole.top, hole.right, hole.bottom, 120, -180, true, holepaint);
+        canvas.drawArc(hole.left, hole.top, hole.right, hole.bottom, -120, 170, true, holepaint);
     }
 
     public Rect getRectangle() {
