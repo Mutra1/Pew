@@ -1,6 +1,7 @@
 package com.something.pew;
 
 import android.annotation.SuppressLint;
+import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -28,22 +29,47 @@ public class MainActivity extends AppCompatActivity {
                     game.setInitialY(event.getY());
                 }
                 if(event.getX() != game.getInitialX() || event.getY() != game.getInitialY()) {      //User starts to move finger
-                    System.out.println("increment");
                     game.incrementFrameCount();
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP) {        //User lifts finger off of screen
                     System.out.println("\nTouch Off");
-                    System.out.println("\nFinal X: " + event.getX());
-                    System.out.println("\nFinal Y: " + event.getY());
                     game.setFinalX(event.getX());
                     game.setFinalY(event.getY());
-                    game.setTime(game.getFrameCount());                 //Calculate how much time has passed
-                    System.out.println("\nFramecount: " + game.getFrameCount());
-                    System.out.println("\nTime: " + game.getTime());
-                    game.resetFrameCount();                             //Reset framecount for next run
+                    System.out.println("Final x: " + game.getFinalX());
+                    System.out.println("Final y: " + game.getFinalY());
+                    game.setTime(game.getFrameCount());                 //Calculates how much time has passed
+                    game.calculateVelocityX();
+                    game.calculateVelocityY();
+//                    game.calculateAngle();                            //Calculates the angle that the ball is being sent at
+                    System.out.println("\nVelocity Y: " + game.getVelocityY());
+                    System.out.println("\nVelocity X: " + game.getVelocityX());
+//                    System.out.println("\nAngle: " + game.getAngle());
+                    System.out.println("framecount: " + game.getFrameCount());
+                    animateBall();
                 }
                 return true;
             }
         });
+    }
+
+    private void animateBall() {
+        float newleft = 0;
+        float newtop = 0;
+        float newright = 0;
+        float newbottom = 0;
+
+       for(float t = 1; objects.getBall().left < 2000; t+=t+.01) {
+           System.out.println("\nballleft: " + objects.getBall().left);
+           newleft = objects.getBall().left + (game.getVelocityX()*t);
+           newtop = (float)(objects.getBall().top + (float)(1/2)*(98.0)*(t) + (game.getVelocityY() * t));
+           newright = newleft + 100;
+           newbottom = newtop + 100;
+           System.out.println("\nnewleft: " + newleft);
+           System.out.println("\nnewtop: " + newtop);
+           objects.getBall().set(newleft, newtop, newright, newbottom);
+
+       }
+
+        game.resetFrameCount();                             //Resets the framecount for next run so that time is different every time the user sets their finger down and up again
     }
 }

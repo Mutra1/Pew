@@ -2,7 +2,8 @@ package com.something.pew;
 
 public class Game {
     private int points;
-    private float initialx, initialy, finalx, finaly, framecount, time, velocityx, velocityy, velocity;
+    private float initialx, initialy, finalx, finaly, framecount, time, velocityy, velocityx;
+    private double velocity, angle;
 
     //Time is measured as sec/60frames
     public Game(int points) {
@@ -13,21 +14,23 @@ public class Game {
 
     //Velocity is distance traveled divided by time
     public void calculateVelocityX() {
-        velocityx = (finalx - finaly)/time;
+        velocityx = (finalx - initialx)/framecount/2;
     }
 
     public void calculateVelocityY() {
-        velocityy = (finaly - initialy)/time;
+        velocityy = (finaly - initialy)/framecount*2;
     }
 
     //Velocity is squareroot of velocityx^2 + velocityy^2
-    public void calculateVelocity() {
-//        velocity = Math.sqrt
-    }
+//    public void calculateVelocity() {
+//        calculateVelocityX();
+//        calculateVelocityY();
+//        velocity = Math.sqrt(Math.pow(velocityx, 2) + Math.pow(velocityy, 2));
+//    }
 
-    //Sets VelocityY to something else during ball travel, gravity will change it
-    public void setVelocityY(float newvelocityy) {
-        velocityy = newvelocityy;
+    //Calculates the angle the ball is being sent in
+    public void calculateAngle() {
+        angle = Math.toDegrees(Math.asin(velocityy/velocity));
     }
 
     public void incrementFrameCount() {
@@ -86,16 +89,20 @@ public class Game {
         return finaly;
     }
 
-    public float getVelocityX() {
-        return velocityx;
-    }
-
     public float getVelocityY() {
         return velocityy;
     }
 
-    public float getVelocity() {
-        return velocity;
+    public float getVelocityX() {
+        return velocityx;
+    }
+
+//    public double getVelocity() {
+//        return velocity;
+//    }
+
+    public double getAngle() {
+        return angle;
     }
 
     public int getPoints() {
