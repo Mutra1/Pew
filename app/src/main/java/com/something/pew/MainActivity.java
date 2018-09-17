@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.PathInterpolator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Touch");
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     //User presses finger on screen
+                    game.resetAnimateFrameCount();
                     game.resetFrameCount();                             //Resets the framecount for next run so that time is different every time the user sets their finger down and up again
                     System.out.println("\ninitialx:" + event.getX());
                     System.out.println("\ninitialy: " + event.getY());
@@ -46,15 +48,15 @@ public class MainActivity extends AppCompatActivity {
                     game.setFinalY(event.getY());
                     System.out.println("Final x: " + game.getFinalX());
                     System.out.println("Final y: " + game.getFinalY());
-                    game.setTime(game.getFrameCount());                 //Calculates how much time has passed
                     game.calculateVelocityX();
                     game.calculateVelocityY();
-                    game.calculateAngle();                            //Calculates the angle that the ball is being sent at
                     System.out.println("\nVelocity Y: " + game.getVelocityY());
                     System.out.println("\nVelocity X: " + game.getVelocityX());
 //                    System.out.println("\nAngle: " + game.getAngle());
                     System.out.println("framecount: " + game.getFrameCount());
-                    animateBall();
+                    if(game.getFrameCount() != 0 && game.getAnimateFrameCount() == 0) {
+                        animateBall();
+                    }
                 }
                 return true;
             }
@@ -62,43 +64,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void animateBall() {
-        float newleft = objects.getBall().left + (game.getVelocityX() * game.getFrameCount());
-        float newtop = (float)(objects.getBall().top + (1/2)*(9.80)*(game.getFrameCount() + (game.getVelocityY() * game.getFrameCount())));
-        float newright = newleft + 100;
-        float newbottom = newtop + 100;
-        AnimatorSet ballAnimation = new AnimatorSet();
 //        System.out.println("newleft: " + newleft);
 //        System.out.println("newright: " + newright);
 //        System.out.println("newtop: " + newtop);
 //        System.out.println("newbottom: " + newbottom);
 
-
-        ObjectAnimator animateLeft = ObjectAnimator.ofFloat(objects.getBall(), "left", objects.getBall().left, newleft).setDuration(250);
-        ObjectAnimator animateRight = ObjectAnimator.ofFloat(objects.getBall(), "right", objects.getBall().right, newright).setDuration(250);
-        ObjectAnimator animateTop = ObjectAnimator.ofFloat(objects.getBall(), "top", objects.getBall().top, newtop).setDuration(250);
-        ObjectAnimator animateBottom = ObjectAnimator.ofFloat(objects.getBall(), "bottom", objects.getBall().bottom, newbottom).setDuration(250);
-//        ObjectAnimator animateArc = ObjectAnimator.ofFloat(objects.getHole(), "left", objects.getHole().left, objects.getHole().left);
-//        animateArc.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-//                objects.invalidate();
-//            }
-//        });
-        animateBottom.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        setTimeout(25, new Runnable() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                objects.invalidate();
-            }
-        });
-        animateRight.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                objects.invalidate();
+            public void run() {
+                System.out.println("Animating");
+                float newleft = objects.getBall().left + (game.getVelocityX() * game.getAnimateFrameCount());
+                float newtop = (float)(objects.getBall().top + ((3)*game.getAnimateFrameCount()) - (game.getVelocityY() * game.getAnimateFrameCount()));
+                System.out.println("newtop: " + newtop);
+                objects.getBall().set(newleft, newtop, newleft+100, newtop+100);
+                setContentView(objects);
+                if(game.getAnimateFrameCount() < game.getFrameCount()) {
+                    game.incrementAnimateFrameCount();
+                    animateBall();
+                }
             }
         });
 
+    }
 
-        ballAnimation.playTogether(animateLeft, animateRight, animateTop, animateBottom);
-        ballAnimation.start();
+    public void setTimeout(final int delay, Runnable function) {
+        new android.os.Handler().postDelayed(function, delay);
     }
 }
