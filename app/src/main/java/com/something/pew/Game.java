@@ -14,11 +14,11 @@ public class Game {
 
     //Velocity is distance traveled divided by time
     public void calculateVelocityX() {
-        velocityx = (finalx - initialx)/framecount/2;
+        velocityx = (finalx - initialx)/framecount/1.5f;
     }
 
     public void calculateVelocityY() {
-        velocityy = (finaly - initialy)/framecount*2;
+        velocityy = (finaly - initialy)/framecount*3;
     }
 
     //Velocity is squareroot of velocityx^2 + velocityy^2

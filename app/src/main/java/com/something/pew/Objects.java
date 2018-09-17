@@ -10,7 +10,7 @@ import android.view.View;
 
 public class Objects extends View {
     private Rect rectangle;
-    private RectF hole, ball;
+    private RectFAnimate hole, ball;
     private Paint rectpaint, ballpaint, holepaint;
 
 
@@ -23,8 +23,8 @@ public class Objects extends View {
         System.out.println("ballystart: " + ballystart);
         System.out.println("holestart: " + holestart);
         rectangle = new Rect(950, 0, 1100 ,5000);
-        ball = new RectF(ballxstart, ballystart, ballxstart+100, ballystart+100);
-        hole = new RectF(750, holestart-100, 1050, holestart + 150);
+        ball = new RectFAnimate(ballxstart, ballystart, ballxstart+100, ballystart+100);
+        hole = new RectFAnimate(750, holestart-100, 1050, holestart + 150);
         rectpaint = new Paint();
         ballpaint = new Paint();
         holepaint = new Paint();
@@ -45,11 +45,11 @@ public class Objects extends View {
         return rectangle;
     }
 
-    public RectF getHole() {
+    public RectFAnimate getHole() {
         return hole;
     }
 
-    public RectF getBall() {
+    public RectFAnimate getBall() {
         return ball;
     }
 
