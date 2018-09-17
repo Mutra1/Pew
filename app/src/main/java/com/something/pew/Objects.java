@@ -30,7 +30,7 @@ public class Objects extends View {
         holepaint = new Paint();
         rectpaint.setColor(Color.BLACK);
         ballpaint.setColor(Color.BLUE);
-        holepaint.setColor(Color.WHITE);
+        holepaint.setColor(Color.GREEN);
     }
 
     @Override
