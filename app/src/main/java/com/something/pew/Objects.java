@@ -36,9 +36,9 @@ public class Objects extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.WHITE);
+        canvas.drawRect(rectangle, rectpaint);
         canvas.drawArc(hole.left, hole.top, hole.right, hole.bottom, -120, 170, true, holepaint);
         canvas.drawOval(ball, ballpaint);
-        canvas.drawRect(rectangle, rectpaint);
     }
 
     public Rect getRectangle() {

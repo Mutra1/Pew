@@ -17,14 +17,7 @@ public class Game {
     //Checks to see if the ball's coordinates line up with the hole's.
     //Return 0 if it hits the wall or is out of bounds, 1 if it lines up with the hole, 2 if it's still going.
     public int checkCollision(RectF ball, RectF hole, Rect wall) {
-        System.out.println("ballleft: " + ball.left);
-        System.out.println("ballright: " + ball.right);
-        System.out.println("balltop: " + ball.top);
-        System.out.println("ballbottom: " + ball.bottom);
-        System.out.println("holeright: " + (hole.right - (hole.width()*0.4)));
-        System.out.println("holetop: " + hole.top);
-        System.out.println("holebottom: " + hole.bottom);
-        if(ball.left < wall.left && ball.left > 0 && ball.top >= 0 && ball.bottom <= 1750) {
+        if(ball.left < wall.left && ball.left > 0 && ball.bottom >= 0 && ball.bottom <= 1750) {
             return 2;
         }
         else if(ball.right >= 950 && ball.top >= hole.top && ball.bottom <= hole.bottom) {
@@ -35,7 +28,7 @@ public class Game {
 
     //Velocity is distance traveled divided by animateframecount
     public void calculateVelocityX() {
-        velocityx = (finalx - initialx)/framecount/2.5f;
+        velocityx = (finalx - initialx)/framecount/1.9f;
     }
 
     public void calculateVelocityY() {
@@ -47,7 +40,7 @@ public class Game {
     }
 
     public void incrementAnimateFrameCount() {
-        animateframecount++;
+        animateframecount+=0.75;
     }
 
     public void resetFrameCount() {
