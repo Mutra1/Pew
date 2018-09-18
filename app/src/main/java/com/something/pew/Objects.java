@@ -24,21 +24,21 @@ public class Objects extends View {
         System.out.println("holestart: " + holestart);
         rectangle = new Rect(950, 0, 1100 ,5000);
         ball = new RectF(ballxstart, ballystart, ballxstart+100, ballystart+100);
-        hole = new RectF(750, holestart-100, 1050, holestart + 150);
+        hole = new RectF(750, holestart-300, 1100, holestart + 300);
         rectpaint = new Paint();
         ballpaint = new Paint();
         holepaint = new Paint();
         rectpaint.setColor(Color.BLACK);
         ballpaint.setColor(Color.BLUE);
-        holepaint.setColor(Color.GREEN);
+        holepaint.setColor(Color.WHITE);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.WHITE);
-        canvas.drawRect(rectangle, rectpaint);
-        canvas.drawOval(ball, ballpaint);
         canvas.drawArc(hole.left, hole.top, hole.right, hole.bottom, -120, 170, true, holepaint);
+        canvas.drawOval(ball, ballpaint);
+        canvas.drawRect(rectangle, rectpaint);
     }
 
     public Rect getRectangle() {

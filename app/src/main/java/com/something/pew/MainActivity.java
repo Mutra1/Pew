@@ -50,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
 //        System.out.println("newtop: " + newtop);
 //        System.out.println("newbottom: " + newbottom);
 
-        setTimeout(60, new Runnable() {
+        setTimeout(55, new Runnable() {
             @Override
             public void run() {
-                float newleft = objects.getBall().left + (game.getVelocityX() * game.getAnimateFrameCount());
-                float newtop = (objects.getBall().top + ((6)*(6*game.getAnimateFrameCount())) - (game.getVelocityY()));
+                float newleft = objects.getBall().left + (game.getVelocityX()*2);
+                float newtop = (objects.getBall().top + ((7)*(6*game.getAnimateFrameCount())) - (game.getVelocityY()));
                 objects.getBall().set(newleft, newtop, newleft+100, newtop+100);
                 objects.getHole().set(objects.getHole().left, objects.getHole().top, objects.getHole().right, objects.getHole().bottom);
                 setContentView(objects);
@@ -63,17 +63,14 @@ public class MainActivity extends AppCompatActivity {
                 //If it hasn't done either, ignore.
                 System.out.println("\nCOLLISION: " + game.checkCollision(objects.getBall(), objects.getHole(), objects.getRectangle()));
                 if(game.checkCollision(objects.getBall(), objects.getHole(), objects.getRectangle()) == 2) {
-                    if(game.getAnimateFrameCount() < game.getFrameCount()) {
-                        game.incrementAnimateFrameCount();
-                        animateBall();
-                    }
+                    game.incrementAnimateFrameCount();
+                    animateBall();
                 }
                 else if(game.checkCollision(objects.getBall(), objects.getHole(), objects.getRectangle()) == 1) {
                     //Win the game
                     System.out.println("\nYou Win!");
                 }
                 else {
-                    //Lose the game
                     System.out.println("\nYou Lose!");
                 }
             }

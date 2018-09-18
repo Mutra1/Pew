@@ -18,13 +18,16 @@ public class Game {
     //Return 0 if it hits the wall or is out of bounds, 1 if it lines up with the hole, 2 if it's still going.
     public int checkCollision(RectF ball, RectF hole, Rect wall) {
         System.out.println("ballleft: " + ball.left);
+        System.out.println("ballright: " + ball.right);
         System.out.println("balltop: " + ball.top);
         System.out.println("ballbottom: " + ball.bottom);
-        System.out.println("wallleft: " + wall.left);
+        System.out.println("holeright: " + (hole.right - (hole.width()*0.4)));
+        System.out.println("holetop: " + hole.top);
+        System.out.println("holebottom: " + hole.bottom);
         if(ball.left < wall.left && ball.left > 0 && ball.top >= 0 && ball.bottom <= 1750) {
             return 2;
         }
-        else if(ball.right >= (hole.right - (hole.width()*0.4)) && ball.top <= hole.top && ball.bottom >= hole.bottom) {
+        else if(ball.right >= 950 && ball.top >= hole.top && ball.bottom <= hole.bottom) {
             return 1;
         }
         return 0;
