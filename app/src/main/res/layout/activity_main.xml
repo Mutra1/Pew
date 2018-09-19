@@ -23,23 +23,24 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:textColor="?attr/colorPrimary" />
+        tools:textColor="#e25a81e3" />
 
     <TextView
         android:id="@+id/textResults"
-        android:layout_width="101dp"
-        android:layout_height="39dp"
+        android:layout_width="140dp"
+        android:layout_height="71dp"
         android:layout_marginBottom="81dp"
         android:layout_marginEnd="141dp"
         android:layout_marginStart="142dp"
         android:layout_marginTop="96dp"
         android:textAlignment="center"
         android:textColor="?attr/colorPrimary"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/resetButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.272"
+        tools:textAlignment="center" />
 </android.support.constraint.ConstraintLayout>

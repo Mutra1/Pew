@@ -28,7 +28,7 @@ public class Game {
 
     //Velocity is distance traveled divided by animateframecount
     public void calculateVelocityX() {
-        velocityx = (finalx - initialx)/framecount/1.9f;
+        velocityx = (finalx - initialx)/framecount/1.6f;
     }
 
     public void calculateVelocityY() {
@@ -47,12 +47,16 @@ public class Game {
         framecount = 0;
     }
 
-    public void resetAnimateFrameCount() {
-        animateframecount = 0;
+    public void incrementPoints() {
+        points++;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
+    public void resetPoints() {
+        points = 0;
+    }
+
+    public void resetAnimateFrameCount() {
+        animateframecount = 0;
     }
 
     public void setInitialX(float pos) {

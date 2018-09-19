@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 //        System.out.println("newtop: " + newtop);
 //        System.out.println("newbottom: " + newbottom);
 
-        setTimeout(35, new Runnable() {
+        setTimeout(45, new Runnable() {
             @Override
             public void run() {
                 float newleft = objects.getBall().left + (game.getVelocityX()*2);
@@ -71,26 +71,19 @@ public class MainActivity extends AppCompatActivity {
                     animateBall();
                 }
                 else if(game.checkCollision(objects.getBall(), objects.getHole(), objects.getRectangle()) == 1) {
-                    //Win the game
-                    System.out.println("\nYou Win!");
-                    setContentView(R.layout.activity_main);
-                    resetButton = findViewById(R.id.resetButton);
-                    textResults = findViewById(R.id.textResults);
-                    textResults.setText("You Win!");
-                    resetButton.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            resetGame();
-                        }
-                    });
+                    //Win the round
+                    game.incrementPoints();
+                    resetGame();
                 }
                 else {
                     System.out.println("\nYou Lose!");
                     setContentView(R.layout.activity_main);
                     resetButton = findViewById(R.id.resetButton);
                     textResults = findViewById(R.id.textResults);
-                    textResults.setText("You Lose!");
+                    textResults.setText("You Lose! Points: " + game.getPoints());
                     resetButton.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
+                            game.resetPoints();
                             resetGame();
                         }
                     });
