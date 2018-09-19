@@ -24,7 +24,7 @@ public class Objects extends View {
         System.out.println("holestart: " + holestart);
         rectangle = new Rect(950, 0, 1100 ,5000);
         ball = new RectF(ballxstart, ballystart, ballxstart+100, ballystart+100);
-        hole = new RectF(750, holestart-300, 1100, holestart + 300);
+        hole = new RectF(750, holestart-275, 1100, holestart + 275);
         rectpaint = new Paint();
         ballpaint = new Paint();
         holepaint = new Paint();
