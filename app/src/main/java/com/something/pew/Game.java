@@ -17,7 +17,7 @@ public class Game {
     //Checks to see if the ball's coordinates line up with the hole's.
     //Return 0 if it hits the wall or is out of bounds, 1 if it lines up with the hole, 2 if it's still going.
     public int checkCollision(RectF ball, RectF hole, Rect wall) {
-        if(ball.left < wall.left && ball.left > 0 && ball.bottom >= 0 && ball.bottom <= 1750) {
+        if(ball.left < wall.left && ball.left > 0 && ball.bottom <= 1750) {
             return 2;
         }
         else if(ball.right >= 950 && ball.top >= hole.top && ball.bottom <= hole.bottom) {

@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 //        System.out.println("newtop: " + newtop);
 //        System.out.println("newbottom: " + newbottom);
 
-        setTimeout(45, new Runnable() {
+        setTimeout(50, new Runnable() {
             @Override
             public void run() {
                 float newleft = objects.getBall().left + (game.getVelocityX()*2);
