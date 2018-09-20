@@ -4,35 +4,49 @@ import android.graphics.RectF;
 import android.graphics.Rect;
 
 public class Game {
-    private int points;
     private float initialx, initialy, finalx, finaly, framecount, animateframecount, velocityy, velocityx;
-    private double velocity, angle;
+    private int width, height;
 
-    public Game(int points) {
-        this.points = points;
+    public Game(int pwidth, int pheight) {
         framecount = 0;
         animateframecount = 1;
+        width = pwidth;
+        height = pheight;
     }
 
     //Checks to see if the ball's coordinates line up with the hole's.
     //Return 0 if it hits the wall or is out of bounds, 1 if it lines up with the hole, 2 if it's still going.
     public int checkCollision(RectF ball, RectF hole, Rect wall) {
-        if(ball.left < wall.left && ball.left > 0 && ball.bottom <= 1750) {
+        if(ball.left < wall.left && ball.left > 0 && ball.bottom <= height) {
+            return 3;
+        }
+
+        else if(ball.right >= wall.left && ball.top >= hole.top+(height*.0025) && ball.bottom <= hole.bottom-(height*.008361204)) {
             return 2;
         }
-        else if(ball.right >= 950 && ball.top >= hole.top && ball.bottom <= hole.bottom) {
+
+        else if((ball.right >= wall.left-(width*.0462962963) || ball.left <= 0) && ball.bottom < height) {
             return 1;
+        }
+
+        if(ball.top >= 1500) {
+            return 0;
         }
         return 0;
     }
 
     //Velocity is distance traveled divided by animateframecount
     public void calculateVelocityX() {
-        velocityx = (finalx - initialx)/framecount/1.6f;
+        velocityx = (finalx - initialx)/framecount/1.15f;
     }
 
     public void calculateVelocityY() {
         velocityy = (initialy - finaly)/framecount*3;
+    }
+
+    //Reverses the velocity of X when bouncing on wall.
+    public void reverseVelocityX() {
+        velocityx *= -1;
     }
 
     public void incrementFrameCount() {
@@ -45,14 +59,6 @@ public class Game {
 
     public void resetFrameCount() {
         framecount = 0;
-    }
-
-    public void incrementPoints() {
-        points++;
-    }
-
-    public void resetPoints() {
-        points = 0;
     }
 
     public void resetAnimateFrameCount() {
@@ -110,12 +116,4 @@ public class Game {
 //    public double getVelocity() {
 //        return velocity;
 //    }
-
-    public double getAngle() {
-        return angle;
-    }
-
-    public int getPoints() {
-        return points;
-    }
 }

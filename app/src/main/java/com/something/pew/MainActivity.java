@@ -3,6 +3,7 @@ package com.something.pew;
 import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -14,14 +15,17 @@ public class MainActivity extends AppCompatActivity {
     private Objects objects;
     private Button resetButton;
     private TextView textResults;
+    private DisplayMetrics dm;
 
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        game = new Game(0);
-        objects = new Objects(this);
+        dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        game = new Game(dm.widthPixels, dm.heightPixels);
+        objects = new Objects(this, dm.widthPixels, dm.heightPixels);
         setContentView(objects);
         objects.setOnTouchListener(new View.OnTouchListener() {
             @Override public boolean onTouch(View v, MotionEvent event) {
@@ -50,41 +54,61 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void animateBall() {
-//        System.out.println("newleft: " + newleft);
-//        System.out.println("newright: " + newright);
-//        System.out.println("newtop: " + newtop);
-//        System.out.println("newbottom: " + newbottom);
-
-        setTimeout(50, new Runnable() {
+        setTimeout(40, new Runnable() {
             @Override
             public void run() {
                 float newleft = objects.getBall().left + (game.getVelocityX()*2);
-                float newtop = (objects.getBall().top + ((6f)*(7.5f*game.getAnimateFrameCount())) - (game.getVelocityY()));
-                objects.getBall().set(newleft, newtop, newleft+100, newtop+100);
-                objects.getHole().set(objects.getHole().left, objects.getHole().top, objects.getHole().right, objects.getHole().bottom);
+                float newtop = (objects.getBall().top + ((6f)*(7.25f*game.getAnimateFrameCount())) - (game.getVelocityY()));
+                objects.getBall().set(newleft, newtop, newleft+(dm.widthPixels * .0925925926f), newtop+(dm.heightPixels * .0557413601f));
                 setContentView(objects);
 
                 //Checks to see if the ball has hit the wall, entered the hole, or hasn't done either.
                 //If it hasn't done either, ignore.
-                if(game.checkCollision(objects.getBall(), objects.getHole(), objects.getRectangle()) == 2) {
+                System.out.println("Collision: " + game.checkCollision(objects.getBall(), objects.getHole(), objects.getRectangle()));
+                if(game.checkCollision(objects.getBall(), objects.getHole(), objects.getRectangle()) == 3) {
                     game.incrementAnimateFrameCount();
                     animateBall();
                 }
-                else if(game.checkCollision(objects.getBall(), objects.getHole(), objects.getRectangle()) == 1) {
-                    //Win the round
-                    game.incrementPoints();
-                    resetGame();
+                else if(game.checkCollision(objects.getBall(), objects.getHole(), objects.getRectangle()) == 2) {
+                    //Win the game
+                    setTimeout(150, new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("\nYou Win!");
+                            setContentView(R.layout.activity_main);
+                            resetButton = findViewById(R.id.resetButton);
+                            textResults = findViewById(R.id.textResults);
+                            textResults.setText("You Win!");
+                            resetButton.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    resetGame();
+                                }
+                            });
+                        }
+                    });
                 }
+
+                else if(game.checkCollision(objects.getBall(), objects.getHole(), objects.getRectangle()) == 1) {
+                    game.reverseVelocityX();
+                    game.incrementAnimateFrameCount();
+                    animateBall();
+                }
+
                 else {
-                    System.out.println("\nYou Lose!");
-                    setContentView(R.layout.activity_main);
-                    resetButton = findViewById(R.id.resetButton);
-                    textResults = findViewById(R.id.textResults);
-                    textResults.setText("You Lose! Points: " + game.getPoints());
-                    resetButton.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            game.resetPoints();
-                            resetGame();
+                    //Lose the game
+                    setTimeout(150, new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("\nYou Lose!");
+                            setContentView(R.layout.activity_main);
+                            resetButton = findViewById(R.id.resetButton);
+                            textResults = findViewById(R.id.textResults);
+                            textResults.setText("You Lose!");
+                            resetButton.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    resetGame();
+                                }
+                            });
                         }
                     });
                 }
@@ -95,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void resetGame() {
-        objects = new Objects(this);
+        objects = new Objects(this, dm.widthPixels, dm.heightPixels);
         setContentView(objects);
         objects.setOnTouchListener(new View.OnTouchListener() {
             @Override public boolean onTouch(View v, MotionEvent event) {
