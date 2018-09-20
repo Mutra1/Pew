@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //FLAG FULLSCREEN
         super.onCreate(savedInstanceState);
         dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -64,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
                 //Checks to see if the ball has hit the wall, entered the hole, or hasn't done either.
                 //If it hasn't done either, ignore.
-                System.out.println("Collision: " + game.checkCollision(objects.getBall(), objects.getHole(), objects.getRectangle()));
                 if(game.checkCollision(objects.getBall(), objects.getHole(), objects.getRectangle()) == 3) {
                     game.incrementAnimateFrameCount();
                     animateBall();
@@ -74,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
                     setTimeout(150, new Runnable() {
                         @Override
                         public void run() {
-                            System.out.println("\nYou Win!");
                             setContentView(R.layout.activity_main);
                             resetButton = findViewById(R.id.resetButton);
                             textResults = findViewById(R.id.textResults);
@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
                     setTimeout(150, new Runnable() {
                         @Override
                         public void run() {
-                            System.out.println("\nYou Lose!");
                             setContentView(R.layout.activity_main);
                             resetButton = findViewById(R.id.resetButton);
                             textResults = findViewById(R.id.textResults);

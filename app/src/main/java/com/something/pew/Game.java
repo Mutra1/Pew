@@ -97,14 +97,6 @@ public class Game {
         return initialy;
     }
 
-    public float getFinalX() {
-        return finalx;
-    }
-
-    public float getFinalY() {
-        return finaly;
-    }
-
     public float getVelocityY() {
         return velocityy;
     }
