@@ -21,7 +21,7 @@ public class Game {
             return 3;
         }
 
-        else if(ball.right >= wall.left+(width*.0342962963) && ball.top >= hole.top+(height*.002) && ball.bottom <= hole.bottom-(height*.008361204)) {
+        else if(ball.right >= wall.left+(width*.0342962963) && ball.bottom >= hole.top/*-(height*.002)*/ && ball.bottom <= hole.bottom/*-(height*.008361204)*/) {
             return 2;
         }
 
