@@ -23,8 +23,6 @@ public class Objects extends View {
         float ballxstart = (float)(Math.random() * (width*.0925925926)) + (width*.0462962963f);
         float ballystart = (float)(Math.random() * (height*.5574136009)) + (height*.1114827202f);
         float holestart = (float)(Math.random() * (height*.5574136009)) + (height*.1114827202f);
-        System.out.println("ballxstart: " + ballxstart);
-        System.out.println("ballystart: " + ballystart);
         rectangle = new Rect((int)(width*.8564814815), 0, width ,5000);
         ball = new RectF(ballxstart, ballystart, ballxstart+(width * 0.0925925926f), ballystart+(height*.0557413601f));
         hole = new RectF((width*.69444444444f), holestart-(height*.1452513966f), width, holestart + (height*.1452513966f));

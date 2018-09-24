@@ -21,7 +21,7 @@ public class Game {
             return 3;
         }
 
-        else if(ball.right >= wall.left+(width*.0342962963) && ball.bottom >= hole.top/*-(height*.002)*/ && ball.bottom <= hole.bottom/*-(height*.008361204)*/) {
+        else if(ball.right >= wall.left+(width*.0342962963) && (ball.top >= hole.top) && (ball.bottom <= hole.bottom-(hole.bottom*.005))) {
             return 2;
         }
 
@@ -37,11 +37,11 @@ public class Game {
 
     //Velocity is distance traveled divided by animateframecount
     public void calculateVelocityX() {
-        velocityx = (finalx - initialx)/framecount/1.15f;
+        velocityx = (finalx - initialx)/framecount/1.45f;
     }
 
     public void calculateVelocityY() {
-        velocityy = (initialy - finaly)/framecount*3;
+        velocityy = (initialy - finaly)/framecount*2.2f;
     }
 
     //Reverses the velocity of X when bouncing on wall.
@@ -54,7 +54,7 @@ public class Game {
     }
 
     public void incrementAnimateFrameCount() {
-        animateframecount+=0.75;
+        animateframecount+=0.00003125;
     }
 
     public void resetFrameCount() {

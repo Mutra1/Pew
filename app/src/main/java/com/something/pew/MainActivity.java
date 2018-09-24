@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
                     game.resetAnimateFrameCount();
                     game.resetFrameCount();                             //Resets the framecount for next run so that time is different every time the user sets their finger down and up again
                     game.setInitialX(event.getX());
+                    game.setInitialX(event.getX());
                     game.setInitialY(event.getY());
                 }
                 if(event.getX() != game.getInitialX() || event.getY() != game.getInitialY()) {      //User starts to move finger
@@ -56,11 +57,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void animateBall() {
-        setTimeout(40, new Runnable() {
+        setTimeout(1000/60, new Runnable() {
             @Override
             public void run() {
                 float newleft = objects.getBall().left + (game.getVelocityX()*2);
-                float newtop = (objects.getBall().top + ((6f)*(7.25f*game.getAnimateFrameCount())) - (game.getVelocityY()));
+                float newtop = (objects.getBall().top + ((14f)*(30933f*game.getAnimateFrameCount())) - (game.getVelocityY()));
                 objects.getBall().set(newleft, newtop, newleft+(dm.widthPixels * .0925925926f), newtop+(dm.heightPixels * .0557413601f));
                 setContentView(objects);
 
